@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Header</title>
+	<link rel="stylesheet" type="text/css" href="/css/common.css">
+</head>
+
+<body>
+<div th:fragment="header">
+	<ul>
+		<li>
+			<a href="/">홈</a>
+		</li>
+		<li>
+			<a href="/company/dept">부서 관리</a>
+		</li>
+		<li>
+			<a href="/company/person">인사 관리</a>
+		</li>
+	</ul>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/js/dept.js"></script>
+	<script src="/js/person.js"></script>
+</div>
+</body>
+
+</html>

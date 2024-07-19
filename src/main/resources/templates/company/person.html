@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>인사 관리</title>
+	<link rel="stylesheet" type="text/css" href="/css/common.css">
+</head>
+
+<body>
+<div th:replace="~{/header.html :: header}"></div>
+<div class="container">
+	<h1>인사 관리 페이지</h1>
+	<div id="personPost">
+		<label for="personName">이름 :</label>
+		<input type="text" id="personName" placeholder="이름">
+		<label for="personPhone">전화번호 :</label>
+		<input type="tel" id="personPhone" placeholder="전화번호">
+		<label for="personPosition">직책 :</label>
+		<input type="text" id="personPosition" placeholder="직책">
+		<div class="actions">
+			<button onclick="personInput()">인사 등록</button>
+			<button onclick="clearPersonInput()">지우기</button>
+		</div>
+	</div>
+	<div id="personGet">
+		<a onclick="personGet()">인사 전체 출력</a>
+	</div>
+	<div id="personUpdate">
+		<a onclick="personUpdateInput()">인사 수정</a>
+	</div>
+	<div id="personDelete">
+		<a onclick="personDeleteInput()">인사 삭제</a>
+	</div>
+</div>
+</body>
+
+</html>
