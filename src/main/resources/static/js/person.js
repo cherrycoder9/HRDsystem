@@ -62,9 +62,20 @@ function personGet() {
         success: function (result) {
             console.log(result);
             if (result) {
+                let personList = document.querySelector("#personList");
+                personList.innerHTML = ""; // 기존 내용을 지움
+                result.forEach(person => {
+                    personList.innerHTML += `
+                        <div class="person">
+                            <p>부서 번호: ${person.dNo}</p>
+                            <p>이름: ${person.name}</p>
+                            <p>전화번호: ${person.phone}</p>
+                            <p>직책: ${person.position}</p>
+                        </div>
+                        <hr/>
+                    `;
+                });
                 alert("인사 전체 출력 성공");
-                // 인사 데이터를 출력할 수 있는 적절한 로직을 추가해야 함
-                // 예: 페이지에 데이터를 표시하거나, 별도의 페이지로 이동
             } else {
                 alert("인사 전체 출력 실패");
             }

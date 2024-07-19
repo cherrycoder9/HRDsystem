@@ -43,6 +43,7 @@ function postClear() {
                         </div>`;
 }
 
+
 // ==================== 2. 부서 전체 출력 ============================== //
 function deptGet() {
     $.ajax({
@@ -51,9 +52,19 @@ function deptGet() {
         success: function (result) {
             console.log(result);
             if (result) {
+                let deptList = document.querySelector("#deptList");
+                deptList.innerHTML = ""; // 기존 내용을 지움
+                result.forEach(dept => {
+                    deptList.innerHTML += `
+                        <div class="dept">
+                            <p>부서 번호: ${dept.dno}</p>
+                            <p>부서 이름: ${dept.dname}</p>
+                            <p>전화번호: ${dept.dphone}</p>
+                        </div>
+                        <hr/>
+                    `;
+                });
                 alert("부서 전체 출력 성공");
-                // 부서 데이터를 출력할 수 있는 적절한 로직을 추가해야 함
-                // 예: 페이지에 데이터를 표시하거나, 별도의 페이지로 이동
             } else {
                 alert("부서 전체 출력 실패");
             }
