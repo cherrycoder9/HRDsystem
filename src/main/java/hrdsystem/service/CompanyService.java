@@ -42,8 +42,8 @@ public class CompanyService {
     }
 
     // 6. 인사 전체 출력 arrayList
-    public List<PersonDto> personGet(int pNo){
-        return companyDao.personGet(pNo);
+    public List<PersonDto> personGet(){
+        return companyDao.personGet();
     }
 
 

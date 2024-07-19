@@ -22,8 +22,8 @@ public class CompanyController {
 
     //  2. 부서 전체 출력
     @GetMapping("/dept/get")
-    public List<DeptDto> deptGet(int dNo){
-        return companyService.deptGet(dNo);
+    public List<DeptDto> deptGet(){
+        return companyService.deptGet();
     }
 
     // 3. 부서 수정
@@ -46,8 +46,8 @@ public class CompanyController {
 
     // 6. 인사 전체 출력
     @GetMapping("/person/get")
-    public List<PersonDto> personGet(int pNo){
-        return companyService.personGet(pNo);
+    public List<PersonDto> personGet(){
+        return companyService.personGet();
     }
 
     // 7. 인사 수정

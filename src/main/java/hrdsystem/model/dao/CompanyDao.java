@@ -122,11 +122,10 @@ public class CompanyDao {
     }
 
     // 6. 인사 전체 출력
-    public List<PersonDto> personGet(int pNo) {
+    public List<PersonDto> personGet() {
         try {
-            String sql = "select * from person where pno = ?";
+            String sql = "select * from person";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, pNo);
             rs = ps.executeQuery();
             List<PersonDto> list = new ArrayList<>();
             while (rs.next()) {
