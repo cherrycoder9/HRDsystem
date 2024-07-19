@@ -1,5 +1,6 @@
 package hrdsystem.controller;
 
+import hrdsystem.model.dto.PersonDto;
 import hrdsystem.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,20 +34,20 @@ public class CompanyController {
 
     // 5. 인사 등록
     @PostMapping("/person/post")
-    public boolean personPost(String name, String phone, String position, int dNo){
-        return companyService.personPost(name, phone, position, dNo);
+    public boolean personPost(int dNo, String name, String phone, String position){
+        return companyService.personPost(dNo, name, phone, position);
     }
 
     // 6. 인사 출력
     @PostMapping("/person/get")
-    public String personGet(int pNo){
+    public PersonDto personGet(int pNo){
         return companyService.personGet(pNo);
     }
 
     // 7. 인사 수정
     @PostMapping("/person/put")
-    public boolean personPut(int pNo, String name, String phone, String position, int dNo){
-        return companyService.personPut(pNo, name, phone, position, dNo);
+    public boolean personPut(int pNo, String name, String phone, String position){
+        return companyService.personPut(pNo, name, phone, position);
     }
 
     // 8. 인사 삭제
