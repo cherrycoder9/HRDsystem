@@ -1,12 +1,12 @@
 package hrdsystem.controller;
 
+import hrdsystem.model.dto.DeptDto;
 import hrdsystem.model.dto.PersonDto;
 import hrdsystem.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/company")
@@ -18,6 +18,12 @@ public class CompanyController {
     @PostMapping("/dept/post")
     public boolean deptPost(String dName, String dPhone){
         return companyService.deptPost(dName, dPhone);
+    }
+
+    //  2. 부서 전체 출력
+    @GetMapping("/dept/get")
+    public List<DeptDto> deptGet(int dNo){
+        return companyService.deptGet(dNo);
     }
 
     // 3. 부서 수정
@@ -38,16 +44,16 @@ public class CompanyController {
         return companyService.personPost(dNo, name, phone, position);
     }
 
-    // 6. 인사 출력
-    @PostMapping("/person/get")
-    public PersonDto personGet(int pNo){
+    // 6. 인사 전체 출력
+    @GetMapping("/person/get")
+    public List<PersonDto> personGet(int pNo){
         return companyService.personGet(pNo);
     }
 
     // 7. 인사 수정
-    @PostMapping("/person/put")
-    public boolean personPut(int pNo, String name, String phone, String position){
-        return companyService.personPut(pNo, name, phone, position);
+    @PutMapping("/person/put")
+    public boolean personPut(int pNo, int dNo, String name, String phone, String position){
+        return companyService.personPut(pNo, dNo, name, phone, position);
     }
 
     // 8. 인사 삭제
