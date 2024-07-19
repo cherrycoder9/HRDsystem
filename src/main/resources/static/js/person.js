@@ -67,7 +67,7 @@ function personGet() {
                 result.forEach(person => {
                     personList.innerHTML += `
                         <div class="person">
-                            <p>부서 번호: ${person.dNo}</p>
+                            <p>부서 번호: ${person.dno}</p>
                             <p>이름: ${person.name}</p>
                             <p>전화번호: ${person.phone}</p>
                             <p>직책: ${person.position}</p>
