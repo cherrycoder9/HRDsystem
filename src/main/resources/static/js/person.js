@@ -1,62 +1,49 @@
 console.log("person.js");
+personGet()
 
 // ==================== 1. 인사 등록 ============================== //
-function personInput() {
-    let personInput = document.querySelector("#personPost");
-    let html = `<div>
-                    <form>
-                        부서 번호: <input id="personDeptNo" type="text"/> <br/>
-                        이름: <input id="personNameInput" type="text"/> <br/>
-                        전화번호: <input id="personPhoneInput" type="text"/> <br/>
-                        직책: <input id="personPositionInput" type="text"/> <br/>
-                        <button onclick="personPost()" type="button"> 인사 등록 </button>
-                        <button onclick="postClear()" type="button"> 지우기 </button>
-                    </form>
-                </div>`;
-    personInput.innerHTML = html;
-}
-
 function personPost() {
-    let dNo = document.querySelector("#personDeptNo").value;
-    let name = document.querySelector("#personNameInput").value;
-    let phone = document.querySelector("#personPhoneInput").value;
-    let position = document.querySelector("#personPositionInput").value;
+    console.log("personPost()");
+    let dNo = document.querySelector("#personDeptNo").value.trim();
+    let name = document.querySelector("#personName").value.trim();
+    let phone = document.querySelector("#personPhone").value.trim();
+    let position = document.querySelector("#personPosition").value.trim();
+
+    if (!dNo || !name || !phone || !position) {
+        alert("모든 필드를 입력해주세요.");
+        return;
+    }
 
     $.ajax({
         method: 'POST',
         url: '/company/person/post',
-        data: { dNo: dNo, name: name, phone: phone, position: position },
+        data: JSON.stringify({ dno: parseInt(dNo), name: name, phone: phone, position: position }),
+        contentType: "application/json",
         success: function (result) {
             console.log(result);
             if (result) {
                 alert("인사 등록 성공");
-                location.href = "/";
+                location.href = "/company/person";  // 인사 관리 페이지로 이동
             } else {
                 alert("인사 등록 실패");
             }
-        }
+        },
+
     });
 }
 
-function postClear() {
-    let personInput = document.querySelector("#personPost");
-    personInput.innerHTML = `<div id="personPost">
-                            <label for="personName">이름 :</label>
-                            <input type="text" id="personName" placeholder="이름">
-                            <label for="personPhone">전화번호 :</label>
-                            <input type="tel" id="personPhone" placeholder="전화번호">
-                            <label for="personPosition">직책 :</label>
-                            <input type="text" id="personPosition" placeholder="직책">
-                            <div class="actions">
-                                <button onclick="personInput()">인사 등록</button>
-                                <button onclick="clearPersonInput()">지우기</button>
-                            </div>
-                        </div>`;
+function clearPersonInput() {
+    document.querySelector("#personDeptNo").value = "";
+    document.querySelector("#personName").value = "";
+    document.querySelector("#personPhone").value = "";
+    document.querySelector("#personPosition").value = "";
 }
 
 // ==================== 2. 인사 전체 출력 ============================== //
 function personGet() {
+    console.log("personGet()");
     $.ajax({
+        async: false,
         method: 'GET',
         url: '/company/person/get',
         success: function (result) {
@@ -67,6 +54,7 @@ function personGet() {
                 result.forEach(person => {
                     personList.innerHTML += `
                         <div class="person">
+                            <p>인사 번호: ${person.pno}</p>
                             <p>부서 번호: ${person.dno}</p>
                             <p>이름: ${person.name}</p>
                             <p>전화번호: ${person.phone}</p>
@@ -79,12 +67,13 @@ function personGet() {
             } else {
                 alert("인사 전체 출력 실패");
             }
-        }
+        },
     });
 }
 
 // ==================== 3. 인사 수정 ============================== //
 function personUpdateInput() {
+    console.log("personUpdateInput()");
     let personInput = document.querySelector("#personUpdate");
     let html = `<div>
                     <form>
@@ -101,6 +90,7 @@ function personUpdateInput() {
 }
 
 function personUpdate() {
+    console.log("personUpdate()");
     let pNo = document.querySelector("#personUpdateNo").value;
     let dNo = document.querySelector("#personUpdateDeptNo").value;
     let name = document.querySelector("#personUpdateName").value;
@@ -115,7 +105,7 @@ function personUpdate() {
             console.log(result);
             if (result) {
                 alert("인사 수정 성공");
-                location.href = "/";
+                location.href = "/company/person";
             } else {
                 alert("인사 수정 실패");
             }
@@ -124,6 +114,7 @@ function personUpdate() {
 }
 
 function updateClear() {
+    console.log("updateClear()");
     let personInput = document.querySelector("#personUpdate");
     personInput.innerHTML = `<div id="personUpdate">
                                 <a onclick="personUpdateInput()">
@@ -134,6 +125,7 @@ function updateClear() {
 
 // ==================== 4. 인사 삭제 ============================== //
 function personDeleteInput() {
+    console.log("personDeleteInput()");
     let personInput = document.querySelector("#personDelete");
     let html = `<div>
                     <form>
@@ -146,6 +138,7 @@ function personDeleteInput() {
 }
 
 function personDelete() {
+    console.log("personDelete()");
     let pNo = document.querySelector("#personDeleteNo").value;
 
     $.ajax({
@@ -156,7 +149,7 @@ function personDelete() {
             console.log(result);
             if (result) {
                 alert("인사 삭제 성공");
-                location.href = "/";
+                location.href = "/company/person";
             } else {
                 alert("인사 삭제 실패");
             }
@@ -165,6 +158,7 @@ function personDelete() {
 }
 
 function deleteClear() {
+    console.log("deleteClear()");
     let personInput = document.querySelector("#personDelete");
     personInput.innerHTML = `<div id="personDelete">
                                 <a onclick="personDeleteInput()">

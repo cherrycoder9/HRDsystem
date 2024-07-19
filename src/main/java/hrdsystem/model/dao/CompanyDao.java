@@ -20,6 +20,7 @@ public class CompanyDao {
 
 
     private CompanyDao() {
+        System.out.println("CompanyDao.CompanyDao");
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hrdsystem", "root", "1234");
@@ -31,24 +32,27 @@ public class CompanyDao {
 
     //  1. 부서 등록
     public boolean deptPost(DeptDto deptDto){
+        System.out.println("CompanyDao.deptPost");
         try{
+            if(deptDto.getDname() == null || deptDto.getDphone() == null) {
+                return false;  // null 값이 입력되면 false 반환
+            }
             String sql = "insert into dept(dname, dphone) values(?,?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1,deptDto.getDname());
             ps.setString(2,deptDto.getDphone());
 
             int count = ps.executeUpdate();
-            if(count == 1){
-                return true;
-            }
+            return count == 1;
         }catch(Exception e){
             System.out.println(e);
+            return false;
         }
-        return false;
     }
 
     // 2. 부서 전체 출력
     public List<DeptDto> deptGet(){
+        System.out.println("CompanyDao.deptGet");
         try{
             String sql = "select * from dept";
             ps = conn.prepareStatement(sql);
@@ -69,26 +73,28 @@ public class CompanyDao {
     }
 
     // 3. 부서 수정
-    public boolean deptPut(DeptDto deptDto){
-        try{
+    public boolean deptPut(DeptDto deptDto) {
+        System.out.println("CompanyDao.deptPut: " + deptDto);
+        try {
             String sql = "update dept set dname = ?, dphone = ? where dno = ?";
             ps = conn.prepareStatement(sql);
-            ps.setString(1,deptDto.getDname());
-            ps.setString(2,deptDto.getDphone());
-            ps.setInt(3,deptDto.getDno());
+            ps.setString(1, deptDto.getDname());
+            ps.setString(2, deptDto.getDphone());
+            ps.setInt(3, deptDto.getDno());
 
             int count = ps.executeUpdate();
-            if(count == 1){
-                return true;
-            }
-        }catch(Exception e){
-            System.out.println(e);
+            System.out.println("CompanyDao.deptPut: Rows = " + count);
+            return count == 1;
+        } catch (Exception e) {
+            System.out.println("CompanyDao.deptPut Error: " + e.getMessage());
+            e.printStackTrace();
         }
         return false;
     }
 
     //  4. 부서 삭제
     public boolean deptDelete(DeptDto deptDto){
+        System.out.println("CompanyDao.deptDelete");
         try{
             String sql = "delete from dept where dno = ?";
             ps = conn.prepareStatement(sql);
@@ -106,6 +112,7 @@ public class CompanyDao {
 
     // 5. 인사 등록
     public boolean personPost(PersonDto personDto) {
+        System.out.println("CompanyDao.personPost: " + personDto);
         try {
             String sql = "insert into person(dno, name, phone, position) values(?,?,?,?)";
             ps = conn.prepareStatement(sql);
@@ -114,15 +121,19 @@ public class CompanyDao {
             ps.setString(3, personDto.getPhone());
             ps.setString(4, personDto.getPosition());
 
-            return ps.executeUpdate() == 1;
+            int result = ps.executeUpdate();
+            System.out.println("CompanyDao.personPost result: " + result);
+            return result == 1;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("CompanyDao.personPost Error: " + e.getMessage());
+            e.printStackTrace();
         }
         return false;
     }
 
     // 6. 인사 전체 출력
     public List<PersonDto> personGet() {
+        System.out.println("CompanyDao.personGet");
         try {
             String sql = "select * from person";
             ps = conn.prepareStatement(sql);
@@ -146,6 +157,7 @@ public class CompanyDao {
 
     // 7. 인사 수정
     public boolean personPut(PersonDto personDto) {
+        System.out.println("CompanyDao.personPut");
         try {
             String sql = "update person set dno = ?, name = ?, phone = ?, position = ? where pno = ?";
             ps = conn.prepareStatement(sql);
@@ -162,7 +174,8 @@ public class CompanyDao {
     }
 
     // 8. 인사 삭제
-    public boolean personDelete(int pNo) {
+    public boolean personDelete(Integer pNo) {
+        System.out.println("CompanyDao.personDelete");
         try {
             String sql = "delete from person where pno = ?";
             ps = conn.prepareStatement(sql);

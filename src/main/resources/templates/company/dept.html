@@ -2,36 +2,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>부서 관리</title>
-    <link rel="stylesheet" type="text/css" href="/css/common.css">
+	<meta charset="UTF-8">
+	<title>부서 관리</title>
+	<link rel="stylesheet" type="text/css" href="/css/common.css">
 </head>
 
 <body>
-    <div th:replace="~{/header.html :: header}"></div>
-    <div class="container">
-        <h1>부서 관리 페이지</h1>
-        <div id="deptPost">
-            <label for="deptName">부서 :</label>
-            <input type="text" id="deptName" placeholder="부서 이름">
-            <label for="deptPhone">전화번호 :</label>
-            <input type="tel" id="deptPhone" placeholder="전화번호">
-            <div class="actions">
-                <button onclick="deptInput()">부서 등록</button>
-                <button onclick="clearDeptInput()">지우기</button>
-            </div>
-        </div>
-        <div id="deptGet">
-            <a onclick="deptGet()">부서 전체 출력</a>
-            <div id="deptList"></div>
-        </div>
-        <div id="deptUpdate">
-            <a onclick="deptUpdateInput()">부서 수정</a>
-        </div>
-        <div id="deptDelete">
-            <a onclick="deptDeleteInput()">부서 삭제</a>
-        </div>
-    </div>
+<div th:replace="~{/header.html :: header}"></div>
+<div class="container">
+	<h1>부서 관리 페이지</h1>
+	<div id="deptPost">
+		<label for="deptName">부서 :</label>
+		<input type="text" id="deptName" placeholder="부서 이름">
+		<label for="deptPhone">전화번호 :</label>
+		<input type="tel" id="deptPhone" placeholder="전화번호">
+		<div class="actions">
+			<button type="button" onclick="deptPost()">부서 등록</button>
+			<button type="button" onclick="clearDeptInput()">지우기</button>
+		</div>
+	</div>
+	<div id="deptGet">
+		<a onclick="deptGet()">부서 전체 출력</a>
+		<div id="deptList"></div> <!-- 부서 데이터를 출력할 영역 추가 -->
+	</div>
+	<div id="deptUpdate">
+		<a onclick="deptUpdateInput()">부서 수정</a>
+	</div>
+	<div id="deptDelete">
+		<a onclick="deptDeleteInput()">부서 삭제</a>
+	</div>
+</div>
 </body>
 
 </html>
